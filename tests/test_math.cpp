@@ -1,0 +1,16 @@
+#include <gtest/gtest.h>
+#include "math_utils.h"
+
+TEST(MathTest, AddTest) {
+    EXPECT_EQ(add(2, 3), 5);
+    EXPECT_EQ(add(-1, 1), 0);
+}
+
+TEST(MathTest, SubTest) {
+    EXPECT_EQ(sub(5, 3), 2);
+    EXPECT_EQ(sub(0, 5), -5);
+}
+
+TEST_F(MathTest, AddTest_f){
+     EXPECT_EQ(add(1,2),2);
+}
