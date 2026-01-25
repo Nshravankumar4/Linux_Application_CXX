@@ -9,7 +9,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # -----------------------------
 add_library(Main_Utils 
 	src/math_utils.cpp
-	src/Class_Object.cpp)
+	src/Class_Object.cpp
+	src/EncapsulationBankAccount.cpp)
 
 target_include_directories(Main_Utils PUBLIC include)
 
@@ -41,7 +42,8 @@ if(WIN32)
     
     add_executable(runTests 
 		tests/test_math.cpp
-		tests/Class_Object_Test.cpp)
+		tests/Class_Object_Test.cpp
+		tests/EncapsulationBankAccount_Test.cpp)
     target_link_libraries(runTests 
       gtest_main 
       Main_Utils
@@ -55,7 +57,8 @@ else()
     
     add_executable(runTests 
 		tests/test_math.cpp
-		tests/Class_Object_Test.cpp)
+		tests/Class_Object_Test.cpp
+		tests/EncapsulationBankAccount_Test.cpp)
     target_link_libraries(runTests 
       GTest::gtest_main 
       Main_Utils
