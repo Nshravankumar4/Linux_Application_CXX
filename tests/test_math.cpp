@@ -10,7 +10,3 @@ TEST(MathTest, SubTest) {
     EXPECT_EQ(sub(5, 3), 2);
     EXPECT_EQ(sub(0, 5), -5);
 }
-
-TEST_F(MathTest, AddTest_f){
-     EXPECT_EQ(add(1,2),2);
-}
