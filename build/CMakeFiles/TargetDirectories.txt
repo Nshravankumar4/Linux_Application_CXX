@@ -1,0 +1,6 @@
+/mnt/d/Linux/Linux-Application_CXX/build/CMakeFiles/math_utils.dir
+/mnt/d/Linux/Linux-Application_CXX/build/CMakeFiles/app.dir
+/mnt/d/Linux/Linux-Application_CXX/build/CMakeFiles/runTests.dir
+/mnt/d/Linux/Linux-Application_CXX/build/CMakeFiles/test.dir
+/mnt/d/Linux/Linux-Application_CXX/build/CMakeFiles/edit_cache.dir
+/mnt/d/Linux/Linux-Application_CXX/build/CMakeFiles/rebuild_cache.dir

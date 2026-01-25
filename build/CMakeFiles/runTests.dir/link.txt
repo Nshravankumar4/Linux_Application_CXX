@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG CMakeFiles/runTests.dir/tests/test_math.cpp.o -o runTests  /usr/lib/x86_64-linux-gnu/libgtest_main.a libmath_utils.a /usr/lib/x86_64-linux-gnu/libgtest.a 

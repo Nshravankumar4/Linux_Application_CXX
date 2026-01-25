@@ -10,3 +10,14 @@ TEST(MathTest, SubTest) {
     EXPECT_EQ(sub(5, 3), 2);
     EXPECT_EQ(sub(0, 5), -5);
 }
+
+TEST(MathTest, DivideTest) {
+    EXPECT_EQ(divide(6, 3), 2);
+    EXPECT_EQ(divide(12, 4), 3);
+}
+
+TEST(MathTest, MulTest) {
+    EXPECT_EQ(mul(7, 3), 21);
+    EXPECT_EQ(mul(8, 4), 32);
+}
+
