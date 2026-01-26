@@ -1,16 +1,47 @@
-#ifndef BANK_ACCOUNT_H       // Include guard: prevents multiple inclusion of this header
+#ifndef BANK_ACCOUNT_H       // Include guard: prevents multiple inclusion of this header file
 #define BANK_ACCOUNT_H
 
+// -----------------------------
 // Class Declaration: BankAccount
+// -----------------------------
 class BankAccount {
-private:                      // Private members: accessible only inside this class
-    double balance;           // Data member to store account balance
+private: 
+    // Private data member: accessible only within this class
+    double balance;           // Stores the current balance of the bank account
 
-public:                       // Public members: accessible from outside the class
-    BankAccount(double initBalance); // Constructor: initialize balance
-    void deposit(double amount);     // Function to add money to balance
-    void withdraw(double amount);    // Function to withdraw money from balance
-    double getBalance();             // Function to get current balance
+public: 
+    // -----------------------------
+    // Constructor
+    // -----------------------------
+    // Initialize the bank account with a starting balance
+    BankAccount(double initBalance);
+
+    // -----------------------------
+    // Deposit function
+    // -----------------------------
+    // Adds the given amount to the current balance
+    void deposit(double amount);
+
+    // -----------------------------
+    // Withdraw function
+    // -----------------------------
+    // Deducts the given amount from balance unconditionally
+    // Balance can go negative if amount > current balance
+    void withdraw(double amount);
+
+    // -----------------------------
+    // Getter function
+    // -----------------------------
+    // Returns the current balance of the account
+    double getBalance();
+
+    // -----------------------------
+    // Safe withdrawal function
+    // -----------------------------
+    // Checks if there is enough balance before withdrawal
+    // If balance is sufficient, withdraws the amount
+    // Otherwise, prints "Insufficient balance!" and does not change balance
+    void checkBalanceBeforewithdraw(double amount);
 };
 
-#endif
+#endif // BANK_ACCOUNT_H
