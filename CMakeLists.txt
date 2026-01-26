@@ -27,6 +27,7 @@ add_library(Main_Utils
     src/math_utils.cpp
     src/Class_Object.cpp
     src/EncapsulationBankAccount.cpp
+    src/BankAccount.cpp
 )
 
 # --------------------------------------------------
@@ -90,6 +91,7 @@ if(WIN32)
         tests/test_math.cpp
         tests/Class_Object_Test.cpp
         tests/EncapsulationBankAccount_Test.cpp
+	tests/BankAccount_Test.cpp
     )
 
     # Link GoogleTest and project library
@@ -113,6 +115,7 @@ else()
         tests/test_math.cpp
         tests/Class_Object_Test.cpp
         tests/EncapsulationBankAccount_Test.cpp
+        tests/BankAccount_Test.cpp
     )
 
     # Link GoogleTest and project library
