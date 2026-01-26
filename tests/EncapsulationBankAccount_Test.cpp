@@ -1,47 +1,37 @@
-#ifndef BANK_ACCOUNT_H       // Include guard: prevents multiple inclusion of this header file
-#define BANK_ACCOUNT_H
+#include <gtest/gtest.h>        // Include Google Test framework
+#include "EncapsulationBankAccount.h"        // Include the header file of the class we want to test
 
-// -----------------------------
-// Class Declaration: BankAccount
-// -----------------------------
-class BankAccount {
-private: 
-    // Private data member: accessible only within this class
-    double balance;           // Stores the current balance of the bank account
+// ------------------- Google Test Cases -------------------
 
-public: 
-    // -----------------------------
-    // Constructor
-    // -----------------------------
-    // Initialize the bank account with a starting balance
-    BankAccount(double initBalance);
+// TEST is a macro to define a test case
+// Syntax: TEST(TestSuiteName, TestName)
+TEST(BankAccountTest, DepositTest) {
+    BankAccount acc(1000);      // Create BankAccount object with 1000 balance
 
-    // -----------------------------
-    // Deposit function
-    // -----------------------------
-    // Adds the given amount to the current balance
-    void deposit(double amount);
+    acc.deposit(500);           // Deposit 500
+    EXPECT_EQ(acc.getBalance(), 1500);  // Expect balance to be 1500
+}
 
-    // -----------------------------
-    // Withdraw function
-    // -----------------------------
-    // Deducts the given amount from balance unconditionally
-    // Balance can go negative if amount > current balance
-    void withdraw(double amount);
+TEST(BankAccountTest, WithdrawTest) {
+    BankAccount acc(1000);      // Create BankAccount object with 1000 balance
 
-    // -----------------------------
-    // Getter function
-    // -----------------------------
-    // Returns the current balance of the account
-    double getBalance();
+    acc.withdraw(200);          // Withdraw 200
+    EXPECT_EQ(acc.getBalance(), 800);   // Expect balance to be 800
+}
 
-    // -----------------------------
-    // Safe withdrawal function
-    // -----------------------------
-    // Checks if there is enough balance before withdrawal
-    // If balance is sufficient, withdraws the amount
-    // Otherwise, prints "Insufficient balance!" and does not change balance
-    void checkBalanceBeforewithdraw(double amount);
-};
+TEST(BankAccountTest, WithdrawOverBalanceTest) {
+    BankAccount acc(500);       // Create BankAccount object with 500 balance
 
-#endif // BANK_ACCOUNT_H
+    acc.withdraw(1000);         // Try withdrawing more than balance
+    EXPECT_EQ(acc.getBalance(), 500);   // Balance should remain 500 (no change)
+}
+
+TEST(BankAccountTest, MultipleOperationsTest) {
+    BankAccount acc(1000);      // Create BankAccount object
+
+    acc.deposit(200);           // Deposit 200 → balance 1200
+    acc.withdraw(300);          // Withdraw 300 → balance 900
+    acc.deposit(100);           // Deposit 100 → balance 1000
+
+    EXPECT_EQ(acc.getBalance(), 1000);  // Final balance should be 1000
+}
