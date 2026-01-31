@@ -1,0 +1,128 @@
+name: AUTOSAR C++ CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+env:
+  BUILD_TYPE: Debug
+
+jobs:
+  autosar-ci:
+    runs-on: ubuntu-latest
+
+    steps:
+    # --------------------------------------------------
+    # 1️⃣ Checkout Source Code
+    # --------------------------------------------------
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # --------------------------------------------------
+    # 2️⃣ Install Build & Analysis Tools
+    # --------------------------------------------------
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y \
+          cmake \
+          g++ \
+          ninja-build \
+          cppcheck \
+          lcov \
+          libgtest-dev
+
+    # --------------------------------------------------
+    # 3️⃣ Build GoogleTest (Ubuntu Requirement)
+    # --------------------------------------------------
+    - name: Build GoogleTest
+      run: |
+        cd /usr/src/gtest
+        sudo cmake .
+        sudo make
+        sudo cp *.a /usr/lib
+
+    # --------------------------------------------------
+    # 4️⃣ Configure CMake (AUTOSAR Style)
+    # --------------------------------------------------
+    - name: Configure (CMake)
+      run: |
+        cmake -S . -B build \
+          -G Ninja \
+          -DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
+          -DENABLE_TESTS=ON
+
+    # --------------------------------------------------
+    # 5️⃣ Build Application
+    # --------------------------------------------------
+    - name: Build
+      run: |
+        cmake --build build
+
+    # --------------------------------------------------
+    # 6️⃣ Run Unit Tests (SWC Level)
+    # --------------------------------------------------
+    - name: Run Unit Tests
+      run: |
+        ctest --test-dir build --output-on-failure
+
+    # --------------------------------------------------
+    # 7️⃣ Static Analysis (AUTOSAR / MISRA Mindset)
+    # --------------------------------------------------
+    - name: Static Analysis (cppcheck)
+      run: |
+        cppcheck \
+          --enable=all \
+          --inline-suppr \
+          --error-exitcode=1 \
+          --suppress=missingIncludeSystem \
+          src/
+
+    # --------------------------------------------------
+    # 8️⃣ Configure Coverage Build (AUTOSAR Learning)
+    # --------------------------------------------------
+    - name: Configure Coverage Build
+      run: |
+        cmake -S . -B build-cov \
+          -G Ninja \
+          -DCMAKE_BUILD_TYPE=Debug \
+          -DENABLE_TESTS=ON \
+          -DCMAKE_CXX_FLAGS="--coverage" \
+          -DCMAKE_C_FLAGS="--coverage"
+
+    # --------------------------------------------------
+    # 9️⃣ Build Coverage Binary
+    # --------------------------------------------------
+    - name: Build Coverage
+      run: |
+        cmake --build build-cov
+
+    # --------------------------------------------------
+    # 🔟 Run Tests for Coverage
+    # --------------------------------------------------
+    - name: Run Tests (Coverage)
+      run: |
+        ctest --test-dir build-cov --output-on-failure
+
+    # --------------------------------------------------
+    # 1️⃣1️⃣ Generate Coverage Report
+    # --------------------------------------------------
+    - name: Generate Coverage Report
+      run: |
+        lcov --capture \
+             --directory build-cov \
+             --output-file coverage.info
+        lcov --remove coverage.info \
+             '/usr/*' \
+             '*/tests/*' \
+             --output-file coverage.info
+        lcov --summary coverage.info
+
+    # --------------------------------------------------
+    # 1️⃣2️⃣ Coverage Quality Gate (AUTOSAR Style)
+    # --------------------------------------------------
+    - name: Coverage Quality Gate
+      run: |
+        lcov --summary coverage.info | grep -E "lines\.+:\s+100.0%"
