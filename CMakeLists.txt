@@ -24,11 +24,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # This library contains reusable source files
 # --------------------------------------------------
 add_library(Main_Utils
-    src/math_utils.cpp
-    src/Class_Object.cpp
-    src/EncapsulationBankAccount.cpp
-    src/BankAccount.cpp
-    src/InheritanceVehicleCar.cpp
+    Src/math_utils.cpp
+    Src/Class_Object.cpp
+    Src/EncapsulationBankAccount.cpp
+    Src/BankAccount.cpp
+    Src/InheritanceVehicleCar.cpp
 )
 
 # --------------------------------------------------
@@ -37,7 +37,7 @@ add_library(Main_Utils
 #  - Used by Main_Utils
 #  - Also visible to targets linking this library
 # --------------------------------------------------
-target_include_directories(Main_Utils PUBLIC include)
+target_include_directories(Main_Utils PUBLIC Include)
 
 # ==================================================
 # MAIN APPLICATION
@@ -46,7 +46,7 @@ target_include_directories(Main_Utils PUBLIC include)
 # This is the main program
 # --------------------------------------------------
 add_executable(app
-    src/main.cpp
+    Src/main.cpp
 )
 
 # --------------------------------------------------
@@ -88,12 +88,12 @@ if(WIN32)
     # Test executable
     # ---------------------------------------------
     add_executable(runTests
-        tests/main_test.cpp
-        tests/test_math.cpp
-        tests/Class_Object_Test.cpp
-        tests/EncapsulationBankAccount_Test.cpp
-	tests/BankAccount_Test.cpp
-        tests/InheritanceVehicleCar_Test.cpp
+        Test/main_test.cpp
+        Test/test_math.cpp
+        Test/Class_Object_Test.cpp
+        Test/EncapsulationBankAccount_Test.cpp
+	Test/BankAccount_Test.cpp
+        Test/InheritanceVehicleCar_Test.cpp
     )
 
     # Link GoogleTest and project library
@@ -113,12 +113,12 @@ else()
     # Test executable
     # ---------------------------------------------
     add_executable(runTests
-        tests/main_test.cpp
-        tests/test_math.cpp
-        tests/Class_Object_Test.cpp
-        tests/EncapsulationBankAccount_Test.cpp
-        tests/BankAccount_Test.cpp
-	tests/InheritanceVehicleCar_Test.cpp
+        Test/main_test.cpp
+        Test/test_math.cpp
+        Test/Class_Object_Test.cpp
+        Test/EncapsulationBankAccount_Test.cpp
+        Test/BankAccount_Test.cpp
+	Test/InheritanceVehicleCar_Test.cpp
     )
 
     # Link GoogleTest and project library
