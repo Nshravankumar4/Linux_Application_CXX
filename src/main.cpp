@@ -3,6 +3,7 @@
 #include "math_utils.h"
 #include "Class_Object.h"   // 🔥 THIS WAS MISSING
 #include "EncapsulationBankAccount.h"
+#include "InheritanceVehicleCar.h"
 
 using namespace std;
 
@@ -53,6 +54,16 @@ int main() {
   //  ::testing::InitGoogleTest(&argc, argv);  // Initialize GTest
     //return RUN_ALL_TESTS();                  // Run all defined test cases
 //}
+
+
+Car cr;
+cr.setSpeed(10);
+cout << "Car Speed is: ";
+cr.showSpeed();   // void function prints inside
+
+Bike bk;
+bk.setSpeed(100);
+cout << "Bike is: " << bk.AlertFunction() << endl;  // call via object
 
     // Return 0 indicates successful program execution
     return 0;

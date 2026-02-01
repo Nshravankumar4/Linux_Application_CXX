@@ -28,6 +28,7 @@ add_library(Main_Utils
     src/Class_Object.cpp
     src/EncapsulationBankAccount.cpp
     src/BankAccount.cpp
+    src/InheritanceVehicleCar.cpp
 )
 
 # --------------------------------------------------
@@ -92,6 +93,7 @@ if(WIN32)
         tests/Class_Object_Test.cpp
         tests/EncapsulationBankAccount_Test.cpp
 	tests/BankAccount_Test.cpp
+        tests/InheritanceVehicleCar_Test.cpp
     )
 
     # Link GoogleTest and project library
@@ -116,6 +118,7 @@ else()
         tests/Class_Object_Test.cpp
         tests/EncapsulationBankAccount_Test.cpp
         tests/BankAccount_Test.cpp
+	tests/InheritanceVehicleCar_Test.cpp
     )
 
     # Link GoogleTest and project library
