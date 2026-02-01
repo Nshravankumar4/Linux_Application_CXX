@@ -1,0 +1,22 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Shell scripts - force LF line endings
+*.sh text eol=lf
+*.bash text eol=lf
+
+# Batch files - keep CRLF for Windows
+*.bat text eol=crlf
+
+# Source code
+*.cpp text
+*.h text
+*.hpp text
+*.txt text
+*.md text
+
+# Don't touch binary files
+*.png binary
+*.jpg binary
+*.pdf binary
+*.exe binary
