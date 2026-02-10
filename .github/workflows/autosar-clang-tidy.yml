@@ -2,37 +2,44 @@ name: AUTOSAR Clang-Tidy Full Project Check
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, master ]
   pull_request:
 
 jobs:
-  clang-tidy:
+  autosar-check:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install clang-tidy
+      - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install -y clang clang-tidy
+          sudo apt install -y \
+            clang \
+            clang-tidy \
+            cmake \
+            make \
+            libgtest-dev
+
+      - name: Configure project (generate compile_commands.json)
+        run: |
+          cmake -S . -B build \
+            -DCMAKE_CXX_COMPILER=clang++ \
+            -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 
       - name: Verify compile_commands.json
         run: |
-          if [ ! -f compile_commands.json ]; then
-            echo "❌ ERROR: compile_commands.json missing"
+          if [ ! -f build/compile_commands.json ]; then
+            echo "❌ compile_commands.json missing"
             exit 1
           fi
 
-      - name: Run AUTOSAR clang-tidy (ALL FILES)
+      - name: Run clang-tidy (ALL source files)
         run: |
-          echo "======================================"
-          echo " AUTOSAR C++ STATIC ANALYSIS STARTED"
-          echo "======================================"
-
           clang-tidy \
             Src/*.cpp \
-            -p . \
-            --warnings-as-errors='*' \
-            -extra-arg=-fno-color-diagnostics
+            Include/*.h \
+            -p build \
+            --warnings-as-errors='*'
