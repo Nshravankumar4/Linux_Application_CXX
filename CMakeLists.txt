@@ -45,6 +45,7 @@ add_library(Main_Utils
     Src/EncapsulationBankAccount.cpp
     Src/BankAccount.cpp
     Src/InheritanceVehicleCar.cpp
+    Src/Autosar_PR_Violations.cpp
 )
 
 # --------------------------------------------------
