@@ -1,9 +1,9 @@
 name: AUTOSAR C++ Static Analysis
 
 on:
-  pull_request:
-    branches: [ main, master ]
   push:
+    branches: [ main, master ]
+  pull_request:
     branches: [ main, master ]
 
 jobs:
@@ -14,12 +14,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install tools
+      - name: Install clang-tidy
         run: |
           sudo apt-get update
-          sudo apt-get install -y clang clang-tidy cmake make
+          sudo apt-get install -y clang clang-tidy
 
-      - name: Run AUTOSAR clang-tidy (show violations)
+      - name: Run AUTOSAR analysis (show rule + line)
         run: |
           clang-tidy \
             Src/BankAccount.cpp \
