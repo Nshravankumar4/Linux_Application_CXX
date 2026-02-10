@@ -19,6 +19,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # ==================================================
 # AUTOSAR / clang-tidy configuration
+# (ADD THIS BLOCK HERE — after project & C++ standard)
 # ==================================================
 find_program(CLANG_TIDY_EXE NAMES clang-tidy)
 
@@ -107,7 +108,7 @@ if(WIN32)
         Test/test_math.cpp
         Test/Class_Object_Test.cpp
         Test/EncapsulationBankAccount_Test.cpp
-	Test/BankAccount_Test.cpp
+        Test/BankAccount_Test.cpp
         Test/InheritanceVehicleCar_Test.cpp
     )
 
@@ -133,7 +134,7 @@ else()
         Test/Class_Object_Test.cpp
         Test/EncapsulationBankAccount_Test.cpp
         Test/BankAccount_Test.cpp
-	Test/InheritanceVehicleCar_Test.cpp
+        Test/InheritanceVehicleCar_Test.cpp
     )
 
     # Link GoogleTest and project library
