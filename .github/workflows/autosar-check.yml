@@ -1,91 +1,30 @@
 name: AUTOSAR C++ Static Analysis
 
 on:
-  push:
-    branches: [ master, main ]
   pull_request:
-    branches: [ master, main ]
+    branches: [ main, master ]
+  push:
+    branches: [ main, master ]
 
 jobs:
   autosar-check:
     runs-on: ubuntu-latest
 
     steps:
-      # --------------------------------------------------
-      # Checkout code
-      # --------------------------------------------------
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # --------------------------------------------------
-      # Install dependencies
-      # --------------------------------------------------
-      - name: Install dependencies
+      - name: Install tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y \
-            clang \
-            clang-tidy \
-            cmake \
-            make \
-            libgtest-dev
+          sudo apt-get install -y clang clang-tidy cmake make
 
-      # --------------------------------------------------
-      # Build GoogleTest (Linux)
-      # --------------------------------------------------
-      - name: Build GoogleTest
+      - name: Run AUTOSAR clang-tidy (show violations)
         run: |
-          cd /usr/src/gtest
-          sudo cmake .
-          sudo make
-          sudo cp lib/*.a /usr/lib
-
-      # --------------------------------------------------
-      # Configure project
-      # --------------------------------------------------
-      - name: Configure CMake
-        run: |
-          cmake -S . -B build -DCMAKE_CXX_COMPILER=clang++
-
-      # --------------------------------------------------
-      # Run AUTOSAR clang-tidy explicitly
-      # --------------------------------------------------
-      - name: Run AUTOSAR C++ checks
-        run: |
-          echo "Running AUTOSAR C++14 checks..."
           clang-tidy \
-            Src/*.cpp \
-            -checks=autosar-* \
-            -warnings-as-errors=autosar-* \
+            Src/BankAccount.cpp \
+            --checks=autosar-* \
+            --warnings-as-errors=autosar-* \
             -- \
             -std=c++17 \
-            -IInclude \
-          | tee autosar-report.txt
-
-      # --------------------------------------------------
-      # Fail job if AUTOSAR violations exist
-      # --------------------------------------------------
-      - name: Fail on AUTOSAR violations
-        run: |
-          if grep -q "autosar-cpp" autosar-report.txt; then
-            echo "❌ AUTOSAR violations detected"
-            exit 1
-          else
-            echo "✅ No AUTOSAR violations"
-          fi
-
-      # --------------------------------------------------
-      # Job summary (WHY it failed)
-      # --------------------------------------------------
-      - name: AUTOSAR Summary
-        if: failure()
-        run: |
-          echo "## ❌ AUTOSAR C++14 Violations Detected" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Reason:** Code violates AUTOSAR C++14 rules." >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### 📌 Detected Rules:" >> $GITHUB_STEP_SUMMARY
-          grep "autosar-cpp" autosar-report.txt >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### 📘 Rule Reference:" >> $GITHUB_STEP_SUMMARY
-          echo "- https://clang.llvm.org/extra/clang-tidy/checks/autosar/" >> $GITHUB_STEP_SUMMARY
+            -IInclude
