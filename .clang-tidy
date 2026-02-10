@@ -1,0 +1,21 @@
+Checks: >
+  -*,
+  autosar-*,
+  cppcoreguidelines-owning-memory,
+  cppcoreguidelines-pro-bounds-pointer-arithmetic,
+  cppcoreguidelines-pro-type-const-cast,
+  cppcoreguidelines-pro-type-reinterpret-cast,
+  modernize-use-nullptr,
+  modernize-use-override,
+  modernize-use-using,
+  readability-make-member-function-const,
+  bugprone-*,
+  performance-*
+
+WarningsAsErrors: >
+  autosar-*,
+  cppcoreguidelines-owning-memory
+
+HeaderFilterRegex: '.*'
+AnalyzeTemporaryDtors: false
+FormatStyle: none
