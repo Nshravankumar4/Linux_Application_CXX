@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG CMakeFiles/app.dir/Src/main.cpp.o -o app  libMain_Utils.a 

@@ -33,7 +33,7 @@ public:
     // Getter function
     // -----------------------------
     // Returns the current balance of the account
-    double getBalance() const;
+    double getBalance();
 
     // -----------------------------
     // Safe withdrawal function
