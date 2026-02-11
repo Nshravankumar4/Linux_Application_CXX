@@ -1,2 +1,0 @@
-/usr/bin/ar qc libMain_Utils.a CMakeFiles/Main_Utils.dir/Src/math_utils.cpp.o CMakeFiles/Main_Utils.dir/Src/Class_Object.cpp.o CMakeFiles/Main_Utils.dir/Src/EncapsulationBankAccount.cpp.o CMakeFiles/Main_Utils.dir/Src/BankAccount.cpp.o CMakeFiles/Main_Utils.dir/Src/InheritanceVehicleCar.cpp.o
-/usr/bin/ranlib libMain_Utils.a
