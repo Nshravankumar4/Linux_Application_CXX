@@ -57,7 +57,7 @@ int main()
 
     cout << acc.getBalance() << "\n";
 
-    pointerArithmeticViolation();
+//    pointerArithmeticViolation();
     castViolation();
     nullptrViolation();
     memoryViolation();
