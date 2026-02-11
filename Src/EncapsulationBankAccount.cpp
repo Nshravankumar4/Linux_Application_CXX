@@ -22,7 +22,7 @@ void BankAccount::withdraw(double amount) {
 }
 
 /* Getter function definition */
-double BankAccount::getBalance() const{
+double BankAccount::getBalance() {
     return balance;            // Return the current balance
 }
 
